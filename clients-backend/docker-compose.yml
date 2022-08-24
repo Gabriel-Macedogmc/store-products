@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  clients-backend:
+    container_name: clients-backend
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+networks:
+  default:
+    name: grpc-testing_default
+    external: true

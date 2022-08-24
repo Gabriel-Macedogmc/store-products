@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  products-backend:
+    container_name: products-backend
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3336:3333"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+networks:
+  default:
+    name: grpc-testing_default
+    external: true

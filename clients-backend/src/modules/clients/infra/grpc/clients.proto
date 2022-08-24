@@ -1,0 +1,35 @@
+syntax = "proto3";
+import "google/protobuf/duration.proto";  
+import "google/protobuf/timestamp.proto";
+package client;
+
+service ClientService {
+    rpc FindOne (ClientById) returns (Client) {}
+    rpc Create(Client) returns (Client) {}
+    rpc FindAll(Empty) returns (ClientList) {}  
+}
+
+message ClientById {
+    string id = 1;
+}
+
+message Empty {}
+
+message Errors {
+    string status = 1;
+    repeated string message = 2;
+}
+
+message Client {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string document = 4;
+    string createdAt = 5;
+    string updatedAt = 6;
+    Errors error = 7;
+}
+
+message ClientList {
+    repeated Client clients = 1;
+}

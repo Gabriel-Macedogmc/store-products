@@ -1,0 +1,19 @@
+syntax = "proto3";
+package category;
+
+service CategoryService {
+  rpc Create(Category) returns (Category) {}
+  rpc FindOnde(CategoryById) returns (CategoryById) {}
+}
+
+message CategoryById {
+  string id = 1;
+}
+
+message Category {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}

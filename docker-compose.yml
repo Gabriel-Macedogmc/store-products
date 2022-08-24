@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  api-gateway:
+    container_name: api-gateway
+    restart: always
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3337:3333"
+    volumes:
+      - ./api-gateway/:/app
+      - /app/node_modules
+
+  clients-backend:
+    container_name: clients-backend
+    restart: always
+    build:
+      context: ./clients-backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./clients-backend/:/app
+      - /app/node_modules
+
+  products-backend:
+    container_name: products-backend
+    restart: always
+    build:
+      context: ./products-backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./products-backend/:/app
+      - /app/node_modules
+
+  postgres-db:
+    container_name: postgres-db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./postgres/:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+networks:
+  default:
+    name: store-products
+    external: true
